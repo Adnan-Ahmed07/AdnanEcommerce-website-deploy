@@ -10,7 +10,7 @@ const initialState = {
 export const fetchIncomeData = createAsyncThunk(
   "income/fetchData",
   async () => {
-    const response = await axios.get("http://localhost:5000/api/income/data");
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/income/data`);
     return response.data.data;
   }
 );

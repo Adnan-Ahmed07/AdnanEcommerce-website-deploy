@@ -12,7 +12,7 @@ export const addReview = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/customer/review/add",
+        `${import.meta.env.VITE_API_URL}/api/customer/review/add`,
         formData
       );
       return response.data;
@@ -32,7 +32,7 @@ export const getReviews = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/customer/review/${productId}`
+        `${import.meta.env.VITE_API_URL}/api/customer/review/${productId}`
       );
       return response.data;
     } catch (err) {
