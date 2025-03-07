@@ -5,7 +5,7 @@ import AuthLayout from './components/auth/Layout'
 
 import AuthRegister from './pages/auth/register'
 import AuthLogin from './pages/auth/login'
-import AdminMlayout from './components/admin-view/AdminMlayout'
+import AdminMlayout from './components/admin-view/layout'
 import AdminDashboard from './pages/admin-view/dashboard'
 import AdminProducts from './pages/admin-view/products'
 import AdminOrders from './pages/admin-view/orders'
