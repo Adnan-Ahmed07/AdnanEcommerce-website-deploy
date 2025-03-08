@@ -8,7 +8,7 @@ const AdminMlayout = () => {
     
     <div className="flex min-h-screen w-full">
   
-  <AdminSideBar open={opensidebar} setOpen={setOpenSidebar} /> 
+  <AdminSideBar open={openSidebar} setOpen={setOpenSidebar} /> 
     <div className="flex flex-1 flex-col">
     
     <AdminHeader setOpen={setOpenSidebar}/>
