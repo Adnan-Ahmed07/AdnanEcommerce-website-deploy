@@ -13,24 +13,27 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'dist', // Explicit output directory
+    outDir: 'dist',
     rollupOptions: {
       output: {
         manualChunks: {
-          // Split vendor chunks
           react: ['react', 'react-dom'],
           router: ['react-router-dom'],
           icons: ['lucide-react'],
           state: ['@reduxjs/toolkit', 'react-redux'],
-          // Add other heavy dependencies here
         }
       }
     },
-    chunkSizeWarningLimit: 1000, // Increase warning limit (in KB)
-    minify: 'terser', // Enable minification
-    sourcemap: false // Disable in production
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {  // Add this section
+      format: {
+        comments: false
+      }
+    },
+    sourcemap: false
   },
   optimizeDeps: {
-    include: ['react', 'react-dom'] // Pre-bundle dependencies
+    include: ['react', 'react-dom']
   }
 })
