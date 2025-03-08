@@ -34,7 +34,7 @@ const UserCartWrapper=({ cartItems,setOpenCartSheet })=>{
           : null}
         <div className="flex justify-between">
           <span className="font-bold">Total</span>
-          <span className="font-bold">TK:৳{totalCartAmount}</span>
+          <span className="font-bold">${totalCartAmount}</span>
         </div>
         </div>
         <Button
