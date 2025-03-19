@@ -37,6 +37,8 @@ const CustomerHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const [addingProducts, setAddingProducts] = useState([]);
+  const { cartItems } = useSelector((state) => state.customerCart);
 
   const handleSlideNavigation = (direction) => {
     setCurrentSlide(prev => {
@@ -86,7 +88,31 @@ const CustomerHome = () => {
     dispatch(fetchProductDetails(getCurrentProductId));
   }
 
-  function handleAddtoCart(getCurrentProductId) {
+  function handleAddtoCart(getCurrentProductId, getTotalStock) {
+    // Prevent multiple clicks
+    if (addingProducts.includes(getCurrentProductId)) return;
+
+    setAddingProducts(prev => [...prev, getCurrentProductId]);
+
+    let getCartItems = cartItems.items || [];
+
+    if (getCartItems.length) {
+      const indexOfCurrentItem = getCartItems.findIndex(
+        (item) => item.productId === getCurrentProductId
+      );
+      if (indexOfCurrentItem > -1) {
+        const getQuantity = getCartItems[indexOfCurrentItem].quantity;
+        if (getQuantity + 1 > getTotalStock) {
+          toast({
+            title: `Only ${getQuantity} quantity can be added for this item`,
+            variant: "destructive",
+          });
+          setAddingProducts(prev => prev.filter(id => id !== getCurrentProductId));
+          return;
+        }
+      }
+    }
+
     dispatch(
       addToCart({
         userId: user?.id,
@@ -96,10 +122,10 @@ const CustomerHome = () => {
     ).then((data) => {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
-        toast({
-          title: "Product added to cart",
-        });
+        toast({ title: "Product is added to cart" });
       }
+    }).finally(() => {
+      setAddingProducts(prev => prev.filter(id => id !== getCurrentProductId));
     });
   }
 
